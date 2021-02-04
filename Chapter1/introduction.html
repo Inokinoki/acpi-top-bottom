@@ -3,9 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>ACPI from top to bottom</title>
-        
-        <meta name="robots" content="noindex" />
+        <title>WIP: Introduction - ACPI from top to bottom</title>
         
         
 
@@ -20,28 +18,28 @@
         <meta name="theme-color" content="#ffffff" />
 
         
-        <link rel="icon" href="favicon.svg">
+        <link rel="icon" href="../favicon.svg">
         
         
-        <link rel="shortcut icon" href="favicon.png">
+        <link rel="shortcut icon" href="../favicon.png">
         
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
         
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="stylesheet" href="../css/print.css" media="print">
         
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
         
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -51,7 +49,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -97,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="Chapter1/introduction.html"><strong aria-hidden="true">1.</strong> WIP: Introduction</a></li><li class="chapter-item expanded "><a href="Chapter1/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="void.html"><strong aria-hidden="true">3.</strong> WIP: ASL type</a></li><li class="chapter-item expanded "><a href="void.html"><strong aria-hidden="true">4.</strong> WIP: ASL method</a></li><li class="chapter-item expanded "><a href="void.html"><strong aria-hidden="true">5.</strong> WIP: Dump the ACPI tables</a></li><li class="chapter-item expanded "><a href="void.html"><strong aria-hidden="true">6.</strong> WIP: ACPI tables and OS</a></li><li class="chapter-item expanded "><a href="void.html"><strong aria-hidden="true">7.</strong> WIP: Why Hackintosh is painful</a></li><li class="chapter-item expanded "><a href="void.html"><strong aria-hidden="true">8.</strong> WIP: Perspective of EFI and ACPI</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../Chapter1/introduction.html" class="active"><strong aria-hidden="true">1.</strong> WIP: Introduction</a></li><li class="chapter-item expanded "><a href="../Chapter1/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../void.html"><strong aria-hidden="true">3.</strong> WIP: ASL type</a></li><li class="chapter-item expanded "><a href="../void.html"><strong aria-hidden="true">4.</strong> WIP: ASL method</a></li><li class="chapter-item expanded "><a href="../void.html"><strong aria-hidden="true">5.</strong> WIP: Dump the ACPI tables</a></li><li class="chapter-item expanded "><a href="../void.html"><strong aria-hidden="true">6.</strong> WIP: ACPI tables and OS</a></li><li class="chapter-item expanded "><a href="../void.html"><strong aria-hidden="true">7.</strong> WIP: Why Hackintosh is painful</a></li><li class="chapter-item expanded "><a href="../void.html"><strong aria-hidden="true">8.</strong> WIP: Perspective of EFI and ACPI</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -133,7 +131,7 @@
 
                     <div class="right-buttons">
                         
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
@@ -165,67 +163,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p>Let's begin with a classical program in Computer Science - Hello World, to help you better understand ACPI:</p>
-<pre><code class="language-asl">DefinitionBlock (&quot;&quot;, &quot;DSDT&quot;, 2, &quot;&quot;, &quot;&quot;, 0x0)
-{
-	Method (MTH1) {
-		printf(&quot;Hello World&quot;)
-	}
-}
-</code></pre>
-<p>In the basic structure <code>DefinitionBlock</code>, we defined a method named <code>MTH1</code>, which can be called to print the &quot;Hello World&quot; string.</p>
-<p>We will go further on the terms in the other chapters. So, keep calm and continue, just like the first lesson that you have done with the other programming languages.</p>
-<p>To compile it, type:</p>
-<pre><code>iasl hello_world.asl
-</code></pre>
-<p>Without error, you should see a <code>hello_world.aml</code> and the following output:</p>
-<pre><code>ASL Input:     hello_world.asl -      93 bytes      1 keywords      8 source lines
-AML Output:    hello_world.aml -      59 bytes      0 opcodes       1 named objects
-
-Compilation successful. 0 Errors, 0 Warnings, 0 Remarks, 0 Optimizations
-</code></pre>
-<p>ACPIAC also provides an utility, <code>acpiexec</code> as an emulated ACPI execution environment.
-We can use it to test our compiled <code>aml</code> file.</p>
-<pre><code>acpiexec hello_world.aml
-</code></pre>
-<p>The file will be loaded by the emulator, and it waits for our operation after initialization:</p>
-<pre><code>Input file hello_world.aml, Length 0x3B (59) bytes
-
-ACPI: RSDP 0x000055947CC940A0 000024 (v02 Intel )
-ACPI: XSDT 0x000055947E0B1D20 000034 (v00 Intel  AcpiExec 00001001 INTL 20210105)
-ACPI: FACP 0x000055947CC93EC0 000114 (v05 Intel  AcpiExec 00001001 INTL 20210105)
-ACPI: DSDT 0x000055947E0B74F0 00003B (v02                 00000000 INTL 20210105)
-ACPI: FACS 0x000055947CC94060 000040
-
-
-ACPI table initialization:
-Table [DSDT:         ] (id 01) -    1 Objects with   0 Devices,   0 Regions,    1 Methods (0/1/0 Serial/Non/Cvt)
-ACPI: 1 ACPI AML tables successfully acquired and loaded
-
-Final data object initialization: Namespace contains 10 (0xA) objects
-Initializing General Purpose Events (GPEs):
-    Initialized GPE 00 to 7F [_GPE] 16 regs on interrupt 0x0 (SCI)
-    Initialized GPE 80 to FF [_GPE] 16 regs on interrupt 0x0 (SCI)
-Initializing Device/Processor/Thermal objects and executing _INI/_STA methods:
-    Executed 0 _INI methods requiring 0 _STA executions (examined 2 objects)
-- 
-</code></pre>
-<p>We aim at running the <code>MTH1</code> method and seeing the <strong>Hello World</strong> output. We need to <strong>evaluate</strong>/<strong>execute</strong> the method.
-To do so, type <code>Execute \MTH1</code>, where <code>Execute</code> is a command in <code>acpiexec</code>, <code>MTH1</code> is a the method name under <code>\</code> (root, DOS-style).</p>
-<p>We can then see the debug output <code>&quot;Hello World&quot;</code> surrounded by some prompts:</p>
-<pre><code>Evaluating \MTH1
-ACPI Debug:  &quot;Hello World&quot;
-No object was returned from evaluation of \MTH1
-</code></pre>
-<p>We will dig more details of <code>acpiexec</code> in the following chapters.</p>
-<p>If you reach here, it means you have started your first step to fully understand ACPI. Keep reading :)</p>
-
+                        
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
 
+                        
+                            <a rel="next" href="../Chapter1/hello_world.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -236,6 +184,10 @@ No object was returned from evaluation of \MTH1
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
 
+                
+                    <a rel="next" href="../Chapter1/hello_world.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 
@@ -256,26 +208,18 @@ No object was returned from evaluation of \MTH1
         
 
         
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
         
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
         
 
-        
-        
-        <script type="text/javascript">
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
-        
         
 
     </body>
